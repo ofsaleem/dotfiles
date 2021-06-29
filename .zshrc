@@ -118,7 +118,8 @@ alias vim="nvim"
 alias less="nvimpager"
 alias vimpager="nvimpager"
 alias vimcat='nvimpager -c'
-
+alias vimrc='vim ~/.config/nvim/init.vim'
+alias nvimrc='vimrc'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
