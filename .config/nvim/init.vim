@@ -5,12 +5,18 @@ endif
 
 "plugin installations"
 call plug#begin('~/.config/nvim/plugged')
-Plug 'lifepillar/vim-solarized8'
+"Plug 'lifepillar/vim-solarized8'
+Plug 'ishan9299/nvim-solarized-lua'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'google/vim-jsonnet'
+Plug 'onsails/lspkind-nvim'
+Plug 'p00f/nvim-ts-rainbow'
+Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 call plug#end()
 
 "language server activations
@@ -66,9 +72,13 @@ require'nvim-treesitter.configs'.setup{
     },
     indent = {
         enable = true
+    },
+    rainbow = {
+        enable = true
     }
 }
 
+require('lspkind').init()
 EOF
 
 
@@ -85,7 +95,7 @@ syntax enable
 set termguicolors
 set background=dark
 "this ones a plugin, so itll fail if not found
-colorscheme solarized8_flat
+colorscheme solarized-flat
 set tabstop=4
 set expandtab
 set autoindent
@@ -144,8 +154,13 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 EOF
 
+"autoimport mappings?
 inoremap <silent><expr> <C-Space>   compe#complete()
 inoremap <silent><expr> <CR>        compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>       compe#close('<C-e>')
 inoremap <silent><expr> <C-f>       compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>       compe#scroll({ 'delta': -4 })
+
+"transparency
+highlight Normal guibg=none
+highlight NonText guibg=none
