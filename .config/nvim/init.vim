@@ -8,6 +8,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'lifepillar/vim-solarized8'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 "language server activations
@@ -37,6 +38,19 @@ require'compe'.setup({
         nvim_lsp = true,
     },
 })
+
+require'nvim-treesitter.configs'.setup{
+    ensure_installed = "go","bash","json","dockerfile","python","yaml",
+    highlight = {
+        enable = true
+    },
+    incremental_selection = {
+        enable = true
+    },
+    indent = {
+        enable = true
+    }
+}
 EOF
 
 
@@ -65,3 +79,6 @@ set noerrorbells
 set novisualbell
 set softtabstop
 set completeopt=menuone,noselect
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
