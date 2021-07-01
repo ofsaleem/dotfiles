@@ -8,15 +8,28 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'lifepillar/vim-solarized8'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 "language server activations
 lua << EOF
-require'lspconfig'.gopls.setup{}
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.dockerls.setup{}
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+    }
+}
+
+require'lspconfig'.gopls.setup{capabilities = capabilities}
+require'lspconfig'.pyright.setup{capabilities = capabilities}
+require'lspconfig'.bashls.setup{capabilities = capabilities}
+require'lspconfig'.dockerls.setup{capabilities = capabilities}
 require'lspconfig'.jsonls.setup{
     commands = {
         Format = {
@@ -24,11 +37,12 @@ require'lspconfig'.jsonls.setup{
                 vim.lsp.bug.range_formatting({},{0,0},{vim.fn.line("$"),0})
             end
         }
-    }
+    },
+    capabilities = capabilities
 }
-require'lspconfig'.terraformls.setup{}
-require'lspconfig'.vimls.setup{}
-require'lspconfig'.yamlls.setup{}
+require'lspconfig'.terraformls.setup{capabilities = capabilities}
+require'lspconfig'.vimls.setup{capabilities = capabilities}
+require'lspconfig'.yamlls.setup{capabilities = capabilities}
 
 require'compe'.setup({
     enabled = true,
@@ -36,7 +50,10 @@ require'compe'.setup({
         path = true,
         buffer = true,
         nvim_lsp = true,
+        tags = true,
+        nvim_treesitter = true
     },
+    documentation = true
 })
 
 require'nvim-treesitter.configs'.setup{
@@ -51,6 +68,7 @@ require'nvim-treesitter.configs'.setup{
         enable = true
     }
 }
+
 EOF
 
 
