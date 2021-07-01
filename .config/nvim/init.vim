@@ -20,6 +20,15 @@ Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 Plug 'hoob3rt/lualine.nvim'
 Plug 'yamatsum/nvim-cursorline'
 Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
+Plug 'gennaro-tedesco/nvim-jqx'
+Plug 'b3nj5m1n/kommentary'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'karb94/neoscroll.nvim'
+Plug 'folke/which-key.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'mbbill/undotree'
 call plug#end()
 
 "language server activations
@@ -85,6 +94,9 @@ require'lspkind'.init()
 require'lualine'.setup{
   options = { theme = 'solarized_dark' },
 }
+
+require('neoscroll').setup()
+require("which-key").setup{}
 EOF
 
 
@@ -116,6 +128,9 @@ set completeopt=menuone,noselect
 set foldmethod=expr foldlevelstart=1 foldnestmax=2
 set foldexpr=nvim_treesitter#foldexpr()
 set number
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_winsize=25
 "mapping stuff
 lua << EOF
 local t = function(str)
@@ -159,6 +174,8 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 EOF
+
+nnoremap <F5> :UndotreeToggle<CR>
 
 "autoimport mappings?
 inoremap <silent><expr> <C-Space>   compe#complete()
