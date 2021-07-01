@@ -97,7 +97,7 @@ set noerrorbells
 set novisualbell
 set softtabstop
 set completeopt=menuone,noselect
-set foldmethod=expr
+set foldmethod=expr foldlevelstart=1 foldnestmax=2
 set foldexpr=nvim_treesitter#foldexpr()
 
 "mapping stuff
