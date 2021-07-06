@@ -19,7 +19,7 @@ Plug 'p00f/nvim-ts-rainbow'
 Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 Plug 'hoob3rt/lualine.nvim'
 Plug 'yamatsum/nvim-cursorline'
-Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'gennaro-tedesco/nvim-jqx'
 Plug 'b3nj5m1n/kommentary'
 Plug 'ggandor/lightspeed.nvim'
@@ -123,7 +123,6 @@ set formatoptions=croqla
 set ruler
 set noerrorbells
 set novisualbell
-set softtabstop
 set completeopt=menuone,noselect
 set foldmethod=expr foldlevelstart=1 foldnestmax=2
 set foldexpr=nvim_treesitter#foldexpr()
