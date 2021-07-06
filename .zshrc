@@ -123,3 +123,6 @@ alias nvimrc='vimrc'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# add gcloud path and completion
+[[ -f ~/.gcloud-zsh-config ]] && source ~/.gcloud-zsh-config
