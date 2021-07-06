@@ -7,4 +7,11 @@ syntax enable
 set termguicolors
 set background=dark
 colorscheme solarized-flat
-
+let g:solarized_termtrans=1
+nnoremap <f10> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+	if !exists("*synstack")
+		return
+	endif
+	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
