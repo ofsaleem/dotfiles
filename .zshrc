@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/omar/.oh-my-zsh"
@@ -114,6 +114,7 @@ export VIMPAGER_VIM="nvim"
 export MANPAGER='nvim +Man!'
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
+export GOPATH=~/go
 alias vim="nvim"
 alias less="nvimpager"
 alias vimpager="nvimpager"
