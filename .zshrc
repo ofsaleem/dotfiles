@@ -8,6 +8,9 @@ fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
+# add prebuilt completion scripts
+[[ -f ~/.zsh-completions ]] && source ~/.zsh-completions
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/omar/.oh-my-zsh"
 
@@ -131,6 +134,4 @@ alias nvimrc='vimrc'
 # add flux completion
 #command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
 
-# add prebuilt completion scripts
-[[ -f ~/.zsh-completions ]] && source ~/.zsh-completions
 
