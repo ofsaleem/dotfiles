@@ -1,11 +1,11 @@
 [user]
-	name = Omar Saleem
-	email = ofsaleem@users.noreply.github.com 
+  name = Omar Saleem
+  email = ofsaleem@users.noreply.github.com
 [color]
-	ui = true
-	pager = no
+  ui = true
+  pager = no
 [core]
-	pager = nvimpager
+  pager = nvimpager
 [include]
-	path = .gitconfig.local
+  path = .gitconfig.local
 
