@@ -1,6 +1,11 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Start neofetch with each new instant of zsh. Has to go here, above p10k
+# instant prompt initialization.
+neofetch
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of
+# ~/.zshrc.  Initialization code that may require console input (password
+# prompts, [y/n] confirmations, etc.) must go above this block; everything else
+# may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -132,6 +137,5 @@ alias nvimrc='vimrc'
 [[ -f ~/.gcloud-zsh-config ]] && source ~/.gcloud-zsh-config
 
 # add flux completion
-#command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
-
+command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
 
