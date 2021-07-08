@@ -127,3 +127,10 @@ alias nvimrc='vimrc'
 
 # add gcloud path and completion
 [[ -f ~/.gcloud-zsh-config ]] && source ~/.gcloud-zsh-config
+
+# add flux completion
+#command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
+
+# add prebuilt completion scripts
+[[ -f ~/.zsh-completions ]] && source ~/.zsh-completions
+

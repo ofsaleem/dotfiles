@@ -1,0 +1,2 @@
+export FPATH=$FPATH:/opt/homebrew/share/zsh/site-functions
+
