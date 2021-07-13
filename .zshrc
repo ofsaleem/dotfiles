@@ -24,6 +24,7 @@ elif [ "$system_type" = "Linux" ]; then
   export ZSH="$HOME/.oh-my-zsh"
 else
   export ZSH="$HOME/.oh-my-zsh"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
