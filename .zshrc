@@ -17,7 +17,13 @@ export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 [[ -f ~/.zsh-completions ]] && source ~/.zsh-completions
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/omar/.oh-my-zsh"
+system_type=$(uname -s)
+if [ "$system_type" = "Darwin" ]; then
+  export ZSH="/Users/omar/.oh-my-zsh"
+elif [ "$system_type" = "Linux" ]; then
+  export ZSH="$HOME/.oh-my-zsh"
+else
+  export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -138,4 +144,3 @@ alias nvimrc='vimrc'
 
 # add flux completion
 command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
-
