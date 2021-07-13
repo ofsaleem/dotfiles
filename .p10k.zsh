@@ -1,1 +1,1 @@
-.p10k.zsh##os.Darwin
+.p10k.zsh##os.Linux
