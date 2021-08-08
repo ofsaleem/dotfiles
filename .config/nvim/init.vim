@@ -18,7 +18,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 Plug 'hoob3rt/lualine.nvim'
-Plug 'yamatsum/nvim-cursorline'
+Plug 'yamatsum/nvim-cursorline', { 'branch': 'nightly'}
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'gennaro-tedesco/nvim-jqx'
 Plug 'b3nj5m1n/kommentary'
@@ -97,6 +97,7 @@ require'lualine'.setup{
 
 require('neoscroll').setup()
 require("which-key").setup{}
+require'nvim-cursorline'
 EOF
 
 
