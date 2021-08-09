@@ -1,1 +1,0 @@
-.p10k.zsh##os.Darwin
