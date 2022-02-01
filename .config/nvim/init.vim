@@ -13,7 +13,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'google/vim-jsonnet'
+"Plug 'google/vim-jsonnet'
 Plug 'onsails/lspkind-nvim'
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
@@ -61,6 +61,7 @@ require'lspconfig'.jsonls.setup{
 require'lspconfig'.terraformls.setup{capabilities = capabilities}
 require'lspconfig'.vimls.setup{capabilities = capabilities}
 require'lspconfig'.yamlls.setup{capabilities = capabilities}
+require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
 
 require'compe'.setup({
   enabled = true,

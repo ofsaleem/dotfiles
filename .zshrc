@@ -136,12 +136,17 @@ alias vimpager="nvimpager"
 alias vimcat='nvimpager -c'
 alias vimrc='vim ~/.config/nvim/init.vim'
 alias nvimrc='vimrc'
+alias zshrc='vim ~/.zshrc'
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # add gcloud path and completion
 [[ -f ~/.gcloud-zsh-config ]] && source ~/.gcloud-zsh-config
+
+# add thefuck
+eval $(thefuck --alias) 
 
 # add flux completion
 command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
