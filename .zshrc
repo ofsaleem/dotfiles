@@ -131,6 +131,7 @@ export MANPAGER="nvimpager"
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
 export GOPATH=~/go
+export BAT_THEME="Solarized (dark)"
 alias vim="nvim"
 alias less="nvimpager"
 alias vimpager="nvimpager"
