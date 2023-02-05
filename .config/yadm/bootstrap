@@ -33,8 +33,8 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	cd "$HOME"
 	rm -rf nvimpager
 
-	curl -fLo "$NVIM/site/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	curl -fLo "$NVIMPAGER/site/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	curl -fLo "$NVIM/site/autoload/plug.vim" --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	curl -fLo "$NVIMPAGER/site/autoload/plug.vim" --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	
 	if command -v nvim >/dev/null 2&1; then
 		nvim '+PlugUpdate' '+qall'
