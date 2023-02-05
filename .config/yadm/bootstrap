@@ -5,10 +5,10 @@ export NVIM="${XDG_DATA_HOME:-$HOME/.local/share}/nvim"
 export NVIMPAGER="${XDG_DATA_HOME:-$HOME/.local/share}/nvimpager"
 export ZSH_CUSTOM="${ZSH_CUSTOM:-$OMZ/custom}"
 
-system_type = $(uname -s)
+SYSTEM_TYPE=$(uname -s)
 
 clone_or_pull() {
-	REMOTE = $1
+	REMOTE=$1
 	LOCAL=$2
 	if [ ! -d "$LOCAL" ]; then
 		git clone --depth=1 "$REMOTE" "$LOCAL"
@@ -18,7 +18,7 @@ clone_or_pull() {
 	fi
 }
 
-if [ "$system_type" = "Linux" ]; then
+if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	packagesNeeded='curl wget jq neovim zsh neofetch thefuck ssh libsecret-1-0 libsecret-1-dev htop luarocks scdoc'
 	if [ -x "$(command -v apt)" ]; then sudo apt install $packagesNeeded
 	elif [ -x "$(command -v pacman)" ]; then sudo pacman -S $packagesNeeded
@@ -50,7 +50,7 @@ if [ "$system_type" = "Linux" ]; then
 	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
  	echo "Powerline patched fonts are downloaded to $HOME/p10fonts , please install manually"
 
-	clone_or_pull https://github.com/romkatv/powerlevel10k.git" "$ZSH_CUSTOM/themes/powerlevel10k"
+	clone_or_pull https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
 	
 	clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
