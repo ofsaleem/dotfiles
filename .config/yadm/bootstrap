@@ -25,10 +25,11 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	else echo "NO PACKAGE MANAGERS FOUND: install the follow packages manually: $packagesNeeded">&2;
 	fi
 	
-	sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn	
+	sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn
+	yarn global add neovim	
 	sudo gem install neovim
 
-	yarnpkg global add tree-sitter-cli
+	yarn global add tree-sitter-cli
 
 	sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
 	
