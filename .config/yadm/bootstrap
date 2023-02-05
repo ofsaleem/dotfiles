@@ -29,6 +29,8 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	sudo gem install neovim
 
 	yarnpkg global add tree-sitter-cli
+	sudo cpan App::cpanminus
+
 
 	sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
 	
