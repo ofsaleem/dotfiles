@@ -25,6 +25,7 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	else echo "NO PACKAGE MANAGERS FOUND: install the follow packages manually: $packagesNeeded">&2;
 	fi
 	
+	sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn	
 	sudo gem install neovim
 
 	yarnpkg global add tree-sitter-cli
