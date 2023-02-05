@@ -4,7 +4,7 @@ if &compatible
 endif
 
 "disable perl support
-let g:loaded_perl_provider
+let g:loaded_perl_provider = 0
 
 "plugin installations"
 call plug#begin('~/.config/nvim/plugged')
