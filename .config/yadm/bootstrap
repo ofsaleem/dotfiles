@@ -27,6 +27,8 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	
 	sudo gem install neovim
 
+	yarnpkg global add tree-sitter-cli
+
 	sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
 	
 	clone_or_pull https://github.com/lucc/nvimpager.git "$HOME/nvimpager"
