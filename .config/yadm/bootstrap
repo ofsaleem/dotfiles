@@ -36,7 +36,7 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	curl -fLo "$NVIM/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	curl -fLo "$NVIMPAGER/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	
-	if command -v nvim >/dev/null 2&1; then
+	if [ -x "$(command -v nvim)" ]; then
 		nvim '+PlugUpdate' '+qall'
 	fi
 	
