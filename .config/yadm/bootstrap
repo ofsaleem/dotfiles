@@ -28,6 +28,7 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn
 	yarn global add neovim	
 	sudo gem install neovim
+	pip3 install pynvim
 
 	yarn global add tree-sitter-cli
 
