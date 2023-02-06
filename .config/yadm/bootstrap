@@ -19,8 +19,9 @@ clone_or_pull() {
 }
 
 if [ "$SYSTEM_TYPE" = "Linux" ]; then
-	packagesNeeded='make nodejs lsb-release ripgrep fd-find golang gopls shellcheck ruby python3-pip ruby-dev yarnpkg gnome-keyring build-essential curl wget jq neovim zsh neofetch thefuck ssh libsecret-1-0 libsecret-1-dev htop luarocks scdoc gpg'
-	if [ -x "$(command -v apt)" ]; then sudo apt install $packagesNeeded
+	echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" | sudo tee /etc/apt/sources.list.d/backports.list
+	packagesNeeded='make nodejs lsb-release ripgrep fd-find golang-1.16 gopls shellcheck ruby python3-pip ruby-dev yarnpkg gnome-keyring build-essential curl wget jq neovim zsh neofetch thefuck ssh libsecret-1-0 libsecret-1-dev htop luarocks scdoc gpg'
+	if [ -x "$(command -v apt)" ]; then sudo apt update && sudo apt install $packagesNeeded
 	elif [ -x "$(command -v pacman)" ]; then sudo pacman -S $packagesNeeded
 	else echo "NO PACKAGE MANAGERS FOUND: install the follow packages manually: $packagesNeeded">&2;
 	fi
