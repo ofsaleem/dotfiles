@@ -29,6 +29,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'mbbill/undotree'
+Plug 'b0o/schemastore.nvim'
 call plug#end()
 
 "language server activations
@@ -49,6 +50,12 @@ require'lspconfig'.pyright.setup{capabilities = capabilities}
 require'lspconfig'.bashls.setup{capabilities = capabilities}
 require'lspconfig'.dockerls.setup{capabilities = capabilities}
 require'lspconfig'.jsonls.setup{
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
   commands = {
     Format = {
       function()
