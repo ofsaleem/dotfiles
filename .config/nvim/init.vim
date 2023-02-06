@@ -116,7 +116,7 @@ require'lualine'.setup{
 require('neoscroll').setup()
 require("which-key").setup{}
 require('glow').setup({
-  install_path = '~/.local/bin',
+  install_path = "~/.local/bin",
 })
 
 require'nvim-cursorline'
