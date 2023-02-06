@@ -37,7 +37,8 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	yarn global add bash-language-server --ignore-engines
 	# here too :(
 	yarn global add dockerfile-language-srever-nodejs --ignore-engines
-
+	yarn global add vscode-langservers-extracted --ignore-engines
+	
 	yarn global add tree-sitter-cli
 
 	sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
