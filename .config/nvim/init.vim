@@ -3,6 +3,9 @@ if &compatible
   set nocompatible
 endif
 
+"disable perl support
+let g:loaded_perl_provider = 0
+
 "plugin installations"
 call plug#begin('~/.config/nvim/plugged')
 "Plug 'lifepillar/vim-solarized8'

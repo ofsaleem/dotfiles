@@ -1,2 +1,2 @@
-export FPATH=$FPATH
+export FPATH=$FPATH:${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 

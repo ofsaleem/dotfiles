@@ -1,0 +1,78 @@
+#!/bin/sh
+
+export OMZ="$HOME/.oh-my-zsh"
+export NVIM="${XDG_DATA_HOME:-$HOME/.local/share}/nvim"
+export NVIMPAGER="${XDG_DATA_HOME:-$HOME/.local/share}/nvimpager"
+export ZSH_CUSTOM="${ZSH_CUSTOM:-$OMZ/custom}"
+
+SYSTEM_TYPE=$(uname -s)
+
+clone_or_pull() {
+	REMOTE=$1
+	LOCAL=$2
+	if [ ! -d "$LOCAL" ]; then
+		git clone --depth=1 "$REMOTE" "$LOCAL"
+	else
+		cd "$LOCAL" || exit
+		git pull "$REMOTE"
+	fi
+}
+
+if [ "$SYSTEM_TYPE" = "Linux" ]; then
+	packagesNeeded='make nodejs ripgrep fd-find gopls shellcheck ruby python3-pip ruby-dev yarnpkg gnome-keyring build-essential curl wget jq neovim zsh neofetch thefuck ssh libsecret-1-0 libsecret-1-dev htop luarocks scdoc'
+	if [ -x "$(command -v apt)" ]; then sudo apt install $packagesNeeded
+	elif [ -x "$(command -v pacman)" ]; then sudo pacman -S $packagesNeeded
+	else echo "NO PACKAGE MANAGERS FOUND: install the follow packages manually: $packagesNeeded">&2;
+	fi
+	
+	sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn
+	yarn global add neovim	
+	sudo gem install neovim
+	pip3 install pynvim
+
+	yarn global add pyright
+	# this works but the language server does not due to 
+	# versioning issues. debian's node is just too far
+	# behind :(
+	yarn global add bash-language-server --ignore-engines
+	# here too :(
+	yarn global add dockerfile-language-srever-nodejs --ignore-engines
+
+	yarn global add tree-sitter-cli
+
+	sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
+	
+	clone_or_pull https://github.com/lucc/nvimpager.git "$HOME/nvimpager"
+	cd "$HOME/nvimpager"
+	sudo make install
+	cd "$HOME"
+	rm -rf nvimpager
+
+	curl -fLo "$NVIM/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	curl -fLo "$NVIMPAGER/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	
+	if [ -x "$(command -v nvim)" ]; then
+		nvim '+PlugUpdate' '+qall'
+	fi
+	
+	if [ -x "$(command -v nvimpager)" ]; then
+		nvim '+PlugUpdate' '+qall'
+	fi
+
+	clone_or_pull https://github.com/robbyrussell/oh-my-zsh.git "$OMZ"
+	
+	mkdir $HOME/p10fonts
+	cd $HOME/p10fonts
+	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+ 	echo "Powerline patched fonts are downloaded to $HOME/p10fonts , please install manually"
+
+	clone_or_pull https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+	
+	clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+
+	clone_or_pull https://github.com/zsh-users/zsh-completions.git "$ZSH_CUSTOM/plugins/zsh-completions"	
+fi
+	

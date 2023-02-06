@@ -11,7 +11,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$(yarn global bin):$PATH
 
 # add prebuilt completion scripts
 [[ -f ~/.zsh-completions ]] && source ~/.zsh-completions
