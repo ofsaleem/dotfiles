@@ -31,6 +31,11 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	pip3 install pynvim
 
 	yarn global add pyright
+	# this works but the language server does not due to 
+	# versioning issues. debian's node is just too far
+	# behind :(
+	yarn global add bash-language-server --ignore-engines
+
 
 	yarn global add tree-sitter-cli
 
