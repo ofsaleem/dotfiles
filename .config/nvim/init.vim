@@ -70,7 +70,14 @@ require'lspconfig'.jsonls.setup{
 }
 require'lspconfig'.terraformls.setup{capabilities = capabilities}
 require'lspconfig'.vimls.setup{capabilities = capabilities}
-require'lspconfig'.yamlls.setup{capabilities = capabilities}
+require'lspconfig'.yamlls.setup{
+  settings = {
+    schemaStore = {
+      enable = true
+    },
+  },
+  capabilities = capabilities
+}
 require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
 
 require'compe'.setup({
