@@ -30,6 +30,8 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	sudo gem install neovim
 	pip3 install pynvim
 
+	yarn global add pyright
+
 	yarn global add tree-sitter-cli
 
 	sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
