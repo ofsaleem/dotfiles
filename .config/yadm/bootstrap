@@ -47,6 +47,10 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 		nvim '+PlugUpdate' '+qall'
 	fi
 	
+	if [ -x "$(command -v nvimpager)" ]; then
+		nvim '+PlugUpdate' '+qall'
+	fi
+
 	clone_or_pull https://github.com/robbyrussell/oh-my-zsh.git "$OMZ"
 	
 	mkdir $HOME/p10fonts
