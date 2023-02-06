@@ -27,7 +27,7 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	fi
 
 	sudo update-alternatives --install /usr/bin/go go /usr/lib/go-1.19/bin/go 50 --slave /usr/bin/gofmt gofmt /usr/lib/go-1.19/bin/gofmt
-	
+	go install github.com/grafana/jsonnet-language-server@latest	
 	sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn
 	yarn global add neovim	
 	sudo gem install neovim
