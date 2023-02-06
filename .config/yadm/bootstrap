@@ -35,7 +35,8 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	# versioning issues. debian's node is just too far
 	# behind :(
 	yarn global add bash-language-server --ignore-engines
-
+	# here too :(
+	yarn global add dockerfile-language-srever-nodejs --ignore-engines
 
 	yarn global add tree-sitter-cli
 
