@@ -118,6 +118,7 @@ require("which-key").setup{}
 require('glow').setup({
   install_path = '~/.local/bin',
 })
+
 require'nvim-cursorline'
 EOF
 
