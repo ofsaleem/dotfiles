@@ -19,7 +19,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'google/vim-jsonnet'
 Plug 'onsails/lspkind-nvim'
 Plug 'p00f/nvim-ts-rainbow'
-Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
+Plug 'ellisonleao/glow.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'yamatsum/nvim-cursorline', { 'branch': 'nightly'}
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -115,6 +115,9 @@ require'lualine'.setup{
 
 require('neoscroll').setup()
 require("which-key").setup{}
+require('glow').setup({
+  install_path = '~/.local/bin',
+})
 require'nvim-cursorline'
 EOF
 
