@@ -93,7 +93,7 @@ require'compe'.setup({
 })
 
 require'nvim-treesitter.configs'.setup{
-  ensure_installed = "go","bash","json","dockerfile","python","yaml",
+ensure_installed = { "go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript" },
   highlight = {
     enable = true
   },
