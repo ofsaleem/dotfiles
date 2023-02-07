@@ -71,7 +71,7 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	fi
 	
 	if [ -x "$(command -v nvimpager)" ]; then
-		nvim '+PlugUpdate' '+qall'
+		nvimpager '+PlugUpdate' '+qall'
 	fi
 
 	clone_or_pull https://github.com/robbyrussell/oh-my-zsh.git "$OMZ"
