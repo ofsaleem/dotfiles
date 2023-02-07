@@ -82,7 +82,11 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
 	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
- 	echo "Powerline patched fonts are downloaded to $HOME/p10fonts , please install manually"
+ 	sudo mv * /usr/local/share/fonts/
+	fc-cache
+	echo "Powerline patched fonts are installed to /usr/local/share/fonts/, verify installation with 'fc-list'. You may need to install on a host system if this is a container, like on a Chromebook."
+	cd $HOME
+	rm -rf p10fonts
 
 	clone_or_pull https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
 	
