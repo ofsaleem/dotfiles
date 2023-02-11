@@ -140,7 +140,7 @@ set expandtab
 set autoindent
 set softtabstop=2
 set shiftwidth=2
-set formatoptions=croqla
+set formatoptions=jctn1roq
 set ruler
 set noerrorbells
 set novisualbell
