@@ -8,6 +8,7 @@ set termguicolors
 set background=dark
 colorscheme solarized-flat
 let g:solarized_termtrans=1
+let g:loaded_perl_provider = 0
 nnoremap <f10> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
 	if !exists("*synstack")

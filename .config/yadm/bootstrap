@@ -20,13 +20,17 @@ clone_or_pull() {
 
 if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" | sudo tee /etc/apt/sources.list.d/backports.list
-	packagesNeeded='make nodejs lsb-release ripgrep fd-find golang-1.19 gopls shellcheck ruby python3-pip ruby-dev yarnpkg gnome-keyring build-essential curl wget jq neovim zsh neofetch thefuck ssh libsecret-1-0 libsecret-1-dev htop luarocks scdoc gpg'
+	packagesNeeded='xclip make nodejs lsb-release ripgrep fd-find golang-1.19 gopls shellcheck ruby python3-pip ruby-dev yarnpkg gnome-keyring build-essential curl wget jq zsh neofetch thefuck ssh libsecret-1-0 libsecret-1-dev htop luarocks scdoc gpg'
 	if [ -x "$(command -v apt)" ]; then sudo apt update && sudo apt install $packagesNeeded
 	elif [ -x "$(command -v pacman)" ]; then sudo pacman -S $packagesNeeded
 	else echo "NO PACKAGE MANAGERS FOUND: install the follow packages manually: $packagesNeeded">&2;
 	fi
 
 	sudo update-alternatives --install /usr/bin/go go /usr/lib/go-1.19/bin/go 50 --slave /usr/bin/gofmt gofmt /usr/lib/go-1.19/bin/gofmt
+
+	cd $HOME
+	wget https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb
+	sudo apt install ./nvim-linux64.deb && rm nvim-linux64.deb
 	go install github.com/grafana/jsonnet-language-server@latest	
 	sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn
 	yarn global add neovim	
@@ -44,8 +48,6 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	yarn global add vim-language-server --ignore-engines
 	yarn global add yaml-language-server --ignore-engines
 	
-	mkdir "$HOME/tfls"
-	cd "$HOME/tfls"
 	wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
 	echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 	sudo apt update
@@ -69,7 +71,7 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	fi
 	
 	if [ -x "$(command -v nvimpager)" ]; then
-		nvim '+PlugUpdate' '+qall'
+		nvimpager '+PlugUpdate' '+qall'
 	fi
 
 	clone_or_pull https://github.com/robbyrussell/oh-my-zsh.git "$OMZ"
@@ -80,7 +82,11 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
 	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 	wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
- 	echo "Powerline patched fonts are downloaded to $HOME/p10fonts , please install manually"
+ 	sudo mv * /usr/local/share/fonts/
+	fc-cache
+	echo "Powerline patched fonts are installed to /usr/local/share/fonts/, verify installation with 'fc-list'. You may need to install on a host system if this is a container, like on a Chromebook."
+	cd $HOME
+	rm -rf p10fonts
 
 	clone_or_pull https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
 	
