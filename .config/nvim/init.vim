@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'lifepillar/vim-solarized8'
 Plug 'ishan9299/nvim-solarized-lua'
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
