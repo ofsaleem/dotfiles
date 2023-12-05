@@ -13,6 +13,7 @@ Plug 'ishan9299/nvim-solarized-lua'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -80,7 +81,7 @@ require'lspconfig'.yamlls.setup{
 }
 require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
 
-require'compe'.setup({
+require'cmp'.setup({
   enabled = true,
   source = {
     path = true,
@@ -89,7 +90,7 @@ require'compe'.setup({
     tags = true,
     nvim_treesitter = true
   },
-  documentation = true
+  window.documentation = cmp.config.window.bordered()
 })
 
 require'nvim-treesitter.configs'.setup{
