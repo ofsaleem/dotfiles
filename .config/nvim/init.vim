@@ -14,6 +14,11 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-vsnip'
+Plug 'petertriho/cmp-git'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -36,18 +41,64 @@ Plug 'mbbill/undotree'
 Plug 'b0o/schemastore.nvim'
 call plug#end()
 
-"language server activations
+"cmp setup
 lua << EOF
+local cmp = require'cmp'
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
+cmp.setup({
+  snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+    }, {
+      { name = 'buffer' },
+    })
+})
+
+  -- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
   }
-}
+})
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+  -- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require'lspconfig'.gopls.setup{capabilities = capabilities}
 require'lspconfig'.pyright.setup{capabilities = capabilities}
@@ -81,17 +132,6 @@ require'lspconfig'.yamlls.setup{
 }
 require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
 
-require'cmp'.setup({
-  enabled = true,
-  source = {
-    path = true,
-    buffer = true,
-    nvim_lsp = true,
-    tags = true,
-    nvim_treesitter = true
-  },
-  window.documentation = cmp.config.window.bordered()
-})
 
 require'nvim-treesitter.configs'.setup{
   ensure_installed = { "go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript" },
@@ -175,7 +215,7 @@ _G.tab_complete = function()
   elseif check_back_space() then
     return t "<Tab>"
   else
-    return vim.fn['compe#complete']()
+    return vim.fn['cmp#complete']()
   end
 end
 
@@ -197,13 +237,6 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 EOF
 
 nnoremap <F5> :UndotreeToggle<CR>
-
-"autoimport mappings?
-inoremap <silent><expr> <C-Space>   compe#complete()
-inoremap <silent><expr> <CR>        compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>       compe#close('<C-e>')
-inoremap <silent><expr> <C-f>       compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>       compe#scroll({ 'delta': -4 })
 
 "transparency
 let g:solarized_termtrans=1
