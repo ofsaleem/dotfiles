@@ -43,7 +43,7 @@ if [ "$SYSTEM_TYPE" = "Linux" ]; then
 	# behind :(
 	yarn global add bash-language-server --ignore-engines
 	# these too :(
-	yarn global add dockerfile-language-srever-nodejs --ignore-engines
+	yarn global add dockerfile-language-server-nodejs --ignore-engines
 	yarn global add vscode-langservers-extracted --ignore-engines
 	yarn global add vim-language-server --ignore-engines
 	yarn global add yaml-language-server --ignore-engines
