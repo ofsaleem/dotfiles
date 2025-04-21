@@ -6,6 +6,9 @@ endif
 "disable perl support
 let g:loaded_perl_provider = 0
 
+"disable ruby support
+let g:loaded_ruby_provider = 0
+
 "plugin installations"
 call plug#begin('~/.config/nvim/plugged')
 "Plug 'lifepillar/vim-solarized8'
@@ -34,7 +37,7 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'ggandor/leap.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'folke/which-key.nvim'
-Plug 'nvim-lua/popup.nvim'
+"Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'mbbill/undotree'
