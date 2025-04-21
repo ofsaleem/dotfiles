@@ -150,7 +150,7 @@ alias zshrc='vim ~/.zshrc'
 [[ -f ~/.gcloud-zsh-config ]] && source ~/.gcloud-zsh-config
 
 # add thefuck
-eval $(thefuck --alias) 
+# eval $(thefuck --alias) 
 
 # add flux completion
 command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
