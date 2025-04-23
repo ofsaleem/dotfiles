@@ -42,6 +42,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'mbbill/undotree'
 Plug 'b0o/schemastore.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 call plug#end()
 
 "cmp setup
@@ -98,6 +99,7 @@ cmp.setup({
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'vsnip' }, -- For vsnip users.
+      { name = 'render-markdown' },
     }, {
       { name = 'buffer' },
     })
