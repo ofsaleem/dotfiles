@@ -1,6 +1,6 @@
-# Start neofetch with each new instant of zsh. Has to go here, above p10k
+# Start fastfetch with each new instant of zsh. Has to go here, above p10k
 # instant prompt initialization.
-neofetch
+fastfetch
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of
 # ~/.zshrc.  Initialization code that may require console input (password
