@@ -92,7 +92,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws dash docker gcloud golang history jsontools kubectl nvm pip sudo terraform zsh-syntax-highlighting history-substring-search)
+plugins=(git aws dash docker gcloud golang history jsontools kubectl nvm pip sudo terraform zsh-syntax-highlighting history-substring-search direnv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -154,4 +154,5 @@ alias zshrc='vim ~/.zshrc'
 
 # add flux completion
 command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
+
 
