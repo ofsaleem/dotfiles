@@ -92,7 +92,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws dash docker gcloud golang history jsontools kubectl nvm pip sudo terraform zsh-syntax-highlighting history-substring-search direnv)
+plugins=(git aws dash docker gcloud golang history jsontools kubectl nvm pip sudo terraform zsh-syntax-highlighting history-substring-search direnv poetry)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,6 +134,8 @@ export GOPATH=~/go/
 export BAT_THEME="Solarized (dark)"
 export CLOUDSDK_PYTHON=python3.9
 export USE_GKE_CLOUD_AUTH_PLUGIN=True
+# TODO find a better way to handle this because this will break everywhere else
+[[ -f ~/workspace/awsenv ]] && source ~/workspace/awsenv
 alias vim="nvim"
 alias less="nvimpager"
 alias vimpager="nvimpager"
@@ -156,3 +158,8 @@ alias zshrc='vim ~/.zshrc'
 command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
 
 
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/omar/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
