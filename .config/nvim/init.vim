@@ -33,7 +33,7 @@ Plug 'yamatsum/nvim-cursorline', { 'branch': 'nightly'}
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'gennaro-tedesco/nvim-jqx'
 Plug 'b3nj5m1n/kommentary'
-Plug 'ggandor/leap.nvim'
+Plug 'https://codeberg.org/andyg/leap.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'folke/which-key.nvim'
 "Plug 'nvim-lua/popup.nvim'
@@ -168,7 +168,7 @@ require'lspconfig'.yamlls.setup{
 require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
 
 
-require'nvim-treesitter.configs'.setup{
+require'nvim-treesitter.config'.setup{
   ensure_installed = { "go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript" },
   highlight = {
     enable = true
