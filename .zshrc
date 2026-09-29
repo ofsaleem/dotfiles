@@ -19,7 +19,7 @@ export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$(yarn global
 # Path to your oh-my-zsh installation.
 system_type=$(uname -s)
 if [ "$system_type" = "Darwin" ]; then
-  export ZSH="/Users/omar/.oh-my-zsh"
+  export ZSH="/Users/$USER/.oh-my-zsh"
 elif [ "$system_type" = "Linux" ]; then
   export ZSH="$HOME/.oh-my-zsh"
 else
@@ -159,7 +159,7 @@ command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
 
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/omar/.docker/completions $fpath)
+fpath=("/Users/$USER/.docker/completions" $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
