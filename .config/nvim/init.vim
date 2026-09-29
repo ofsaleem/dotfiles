@@ -169,7 +169,7 @@ require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
 
 
 require'nvim-treesitter.config'.setup{
-  ensure_installed = { "go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript" },
+  ensure_installed = { "go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript", "latex" },
   highlight = {
     enable = true
   },
@@ -180,7 +180,7 @@ require'nvim-treesitter.config'.setup{
     enable = true
   }
 }
-require('nvim-treesitter').install{'yaml', 'html', 'latex'}
+require('nvim-treesitter').install{"go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript", "latex" }
 
 require'lspkind'.init()
 require'lualine'.setup{
