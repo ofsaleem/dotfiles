@@ -180,6 +180,7 @@ require'nvim-treesitter.config'.setup{
     enable = true
   }
 }
+require('nvim-treesitter').install{'yaml', 'html', 'latex'}
 
 require'lspkind'.init()
 require'lualine'.setup{
