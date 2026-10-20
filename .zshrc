@@ -128,6 +128,8 @@ export PAGER="nvimpager"
 export VIMPAGER_VIM="nvim"
 #export MANPAGER='nvim +Man!'
 export MANPAGER="nvimpager"
+export AWS_PAGER="less"
+export LESS="XRF"
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
 export GOPATH=~/go/
@@ -158,11 +160,6 @@ alias zshrc='vim ~/.zshrc'
 command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
 
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=("/Users/$USER/.docker/completions" $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
 
 # pyenv stuff
 export PYENV_ROOT="$HOME/.pyenv"
