@@ -133,7 +133,14 @@ cmp.setup.cmdline(':', {
 })
 
   -- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if status_ok then
+  capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+end
+vim.lsp.config("*", {
+  capabilities = capabilities,
+})
 
 require'lspconfig'.gopls.setup{capabilities = capabilities}
 require'lspconfig'.pyright.setup{capabilities = capabilities}
