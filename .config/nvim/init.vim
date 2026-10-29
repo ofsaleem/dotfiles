@@ -163,14 +163,13 @@ vim.lsp.config('jsonls', {
 })
 require'lspconfig'.terraformls.setup{capabilities = capabilities}
 require'lspconfig'.vimls.setup{capabilities = capabilities}
-require'lspconfig'.yamlls.setup{
+vim.lsp.config('yamlls', {
   settings = {
     schemaStore = {
       enable = true
     },
   },
-  capabilities = capabilities
-}
+})
 require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
 
 
