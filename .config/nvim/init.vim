@@ -142,10 +142,6 @@ vim.lsp.config("*", {
   capabilities = capabilities,
 })
 
-require'lspconfig'.gopls.setup{capabilities = capabilities}
-require'lspconfig'.pyright.setup{capabilities = capabilities}
-require'lspconfig'.bashls.setup{capabilities = capabilities}
-require'lspconfig'.dockerls.setup{capabilities = capabilities}
 vim.lsp.config('jsonls', {
   settings = {
     json = {
@@ -161,8 +157,6 @@ vim.lsp.config('jsonls', {
     }
   },
 })
-require'lspconfig'.terraformls.setup{capabilities = capabilities}
-require'lspconfig'.vimls.setup{capabilities = capabilities}
 vim.lsp.config('yamlls', {
   settings = {
     schemaStore = {
@@ -170,8 +164,6 @@ vim.lsp.config('yamlls', {
     },
   },
 })
-require'lspconfig'.jsonnet_ls.setup{capabilities = capabilities}
-
 
 require'nvim-treesitter.config'.setup{
   ensure_installed = { "go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript", "latex" },
@@ -229,7 +221,7 @@ vim.lsp.config("vtsls", {
   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
   root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
 })
-vim.lsp.enable("vtsls")
+vim.lsp.enable({ 'gopls', 'pyright', 'bashls', 'dockerls', 'jsonls', 'terraformls', 'jsonnet_ls', 'vimls', 'yamlls', 'vtsls' })
 
 hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 EOF
