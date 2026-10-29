@@ -146,7 +146,7 @@ require'lspconfig'.gopls.setup{capabilities = capabilities}
 require'lspconfig'.pyright.setup{capabilities = capabilities}
 require'lspconfig'.bashls.setup{capabilities = capabilities}
 require'lspconfig'.dockerls.setup{capabilities = capabilities}
-require'lspconfig'.jsonls.setup{
+vim.lsp.config('jsonls', {
   settings = {
     json = {
       schemas = require('schemastore').json.schemas(),
@@ -156,12 +156,11 @@ require'lspconfig'.jsonls.setup{
   commands = {
     Format = {
       function()
-        vim.lsp.bug.range_formatting({},{0,0},{vim.fn.line("$"),0})
+        vim.lsp.buf.format({ async = true })
       end
     }
   },
-  capabilities = capabilities
-}
+})
 require'lspconfig'.terraformls.setup{capabilities = capabilities}
 require'lspconfig'.vimls.setup{capabilities = capabilities}
 require'lspconfig'.yamlls.setup{
