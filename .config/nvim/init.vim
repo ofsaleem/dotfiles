@@ -168,6 +168,7 @@ vim.lsp.config('yamlls', {
 require'nvim-treesitter.config'.setup{
   ensure_installed = { "go","bash","json","dockerfile","python","yaml", "diff", "jq", "jsonnet", "make", "markdown", "markdown_inline", "mermaid", "terraform", "vim", "javascript", "latex" },
   highlight = {
+    additional_vim_regex_highlighting = false,
     enable = true
   },
   incremental_selection = {
@@ -189,7 +190,6 @@ require("which-key").setup{}
 
 require'nvim-cursorline'
 require('leap').add_default_mappings()
-require('rainbow-delimiters')
 
 local highlight = {
     "RainbowRed",
@@ -213,7 +213,21 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
 end)
 
-vim.g.rainbow_delimiters = { highlight = highlight }
+vim.g.rainbow_delimiters = { 
+  strategy = {
+    [''] = 'rainbow-delimiters.strategy.global',
+    vim = 'rainbow-delimiters.strategy.local',
+  },
+  query = {
+    [''] = 'rainbow-delimiters',
+    lua = 'rainbow-blocks',
+  },
+  priority = {
+    [''] = 110,
+    lua = 210,
+  },
+  highlight = highlight,
+}
 require("ibl").setup { scope = { highlight = highlight } }
 
 vim.lsp.config("vtsls", {
@@ -224,6 +238,15 @@ vim.lsp.config("vtsls", {
 vim.lsp.enable({ 'gopls', 'pyright', 'bashls', 'dockerls', 'jsonls', 'terraformls', 'jsonnet_ls', 'vimls', 'yamlls', 'vtsls' })
 
 hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+require('rainbow-delimiters')
+
+-- forcing treesitter
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+  pattern = "*",
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
 EOF
 
 
@@ -236,7 +259,7 @@ autocmd BufReadPost *
 
 "preferences
 filetype plugin indent on
-syntax enable
+"syntax enable // commenting out because we want treesitter to handle syntax
 set termguicolors
 set background=dark
 "this ones a plugin, so itll fail if not found
