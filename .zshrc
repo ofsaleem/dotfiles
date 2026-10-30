@@ -142,7 +142,7 @@ alias vim="nvim"
 alias less="nvimpager"
 alias vimpager="nvimpager"
 alias vimcat='nvimpager -c'
-alias vimrc='vim ~/.config/nvim/init.vim'
+alias vimrc='vim ~/.config/nvim/init.lua'
 alias nvimrc='vimrc'
 alias zshrc='vim ~/.zshrc'
 
