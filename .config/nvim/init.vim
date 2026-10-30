@@ -200,6 +200,15 @@ local highlight = {
     "RainbowViolet",
     "RainbowCyan",
 }
+local dim = {
+  "Gray1",
+  "Gray2",
+  "Gray3",
+  "Gray4",
+  "Gray5",
+  "Gray6",
+  "Gray7",
+}
 local hooks = require "ibl.hooks"
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
@@ -211,8 +220,16 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
     vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
     vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+    
+    -- for indents without scope
+    vim.api.nvim_set_hl(0, "Gray1", { fg = "#073642" }) -- Deepest backdrop tone
+    vim.api.nvim_set_hl(0, "Gray2", { fg = "#2a3d42" })
+    vim.api.nvim_set_hl(0, "Gray3", { fg = "#44555b" })
+    vim.api.nvim_set_hl(0, "Gray4", { fg = "#586e75" }) -- Official Comment color
+    vim.api.nvim_set_hl(0, "Gray5", { fg = "#657b83" }) -- Content gray
+    vim.api.nvim_set_hl(0, "Gray6", { fg = "#839496" }) -- Standard text color
+    vim.api.nvim_set_hl(0, "Gray7", { fg = "#93a1a1" }) -- Brightest gray/white
 end)
-
 vim.g.rainbow_delimiters = { 
   strategy = {
     [''] = 'rainbow-delimiters.strategy.global',
@@ -228,7 +245,15 @@ vim.g.rainbow_delimiters = {
   },
   highlight = highlight,
 }
-require("ibl").setup { scope = { highlight = highlight } }
+require("ibl").setup { 
+  indent = {
+    highlight = dim,
+  },
+  scope = { 
+    highlight = highlight,
+    show_exact_scope = true,
+  }, 
+}
 
 vim.lsp.config("vtsls", {
   cmd = { "vtsls", "--stdio" },
