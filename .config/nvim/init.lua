@@ -37,7 +37,7 @@ vim.opt.errorbells = false
 vim.opt.visualbell = false
 vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.foldmethod = "expr"
-vim.opt.foldlevelstart = 1
+vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 2
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.number = true
@@ -48,10 +48,26 @@ vim.g.netrw_winsize = 25
 -- plugins
 require("lazy").setup({
   spec = {
+    {
+      "mason-org/mason-lspconfig.nvim",
+      dependencies = {
+        { "mason-org/mason.nvim", opts = { PATH = "prepend", }, cmd = { "Mason", "MasonInstall", "MasonUpdate", "MasonLog", "MasonUninstall" } },
+        "neovim/nvim-lspconfig",
+      },
+      opts = {
+        ensure_installed = {
+          "gopls", "pyright", "bashls", "dockerls", "terraformls", "jsonnet_ls", "vimls", "jsonls", "yamlls", "vtsls", "lua_ls"
+        },
+      },
+    },
     "ishan9299/nvim-solarized-lua",
     {
       "neovim/nvim-lspconfig",
-      event = "FileType",
+      event = { "BufReadPre", "BufNewFile" },
+      dependencies = {
+        "b0o/schemastore.nvim",
+        { "folke/lazydev.nvim", opts = {} },
+      },
       config = function()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         local status_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
@@ -88,13 +104,17 @@ require("lazy").setup({
           filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
           root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json', '.git' },
         })
-        vim.lsp.enable({ 'gopls', 'pyright', 'bashls', 'dockerls', 'jsonls', 'terraformls', 'jsonnet_ls', 'vimls', 'yamlls', 'vtsls' })
+        vim.lsp.enable({ 'gopls', 'pyright', 'bashls', 'dockerls', 'jsonls', 'terraformls', 'jsonnet_ls', 'vimls', 'yamlls', 'vtsls', "lua_ls" })
       end
     },
     {
       "hrsh7th/nvim-cmp",
       event = { "InsertEnter" },
-      dependencies = { "onsails/lspkind-nvim" },
+      dependencies = { 
+        "onsails/lspkind-nvim",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+    },
       config = function()
         local has_words_before = function()
           unpack = unpack or table.unpack
@@ -106,6 +126,8 @@ require("lazy").setup({
         end
         
         local cmp = require("cmp")
+        local luasnip = require("luasnip")
+        require("luasnip.loaders.from_vscode").lazy_load()
         cmp.setup({
           formatting = {
             format = require("lspkind").cmp_format({
@@ -116,7 +138,7 @@ require("lazy").setup({
           },
           snippet = {
             expand = function(args)
-              vim.fn["vsnip#anonymous"](args.body)
+              luasnip.lsp_expand(args.body)
             end,
           },
           window = {
@@ -127,8 +149,8 @@ require("lazy").setup({
             ["<Tab>"] = cmp.mapping(function(fallback)
               if cmp.visible() then
                 cmp.select_next_item()
-              elseif vim.fn["vsnip#available"](1) == 1 then
-                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+              elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
               elseif has_words_before() then
                 cmp.complete()
               else
@@ -138,10 +160,11 @@ require("lazy").setup({
             ["<S-Tab>"] = cmp.mapping(function()
               if cmp.visible() then
                 cmp.select_prev_item()
-              elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-                feedkey("<Plug>(vsnip-jump-prev)", "")
+              elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+              else fallback()
               end
-            end),
+            end, { "i", "s" }),
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete(),
@@ -150,7 +173,7 @@ require("lazy").setup({
           }),
           sources = cmp.config.sources({
             { name = 'nvim_lsp' },
-            { name = 'vsnip' },
+            { name = 'luasnip' },
             { name = 'render-markdown' },
           }, {
             { name = 'buffer' },
@@ -186,8 +209,6 @@ require("lazy").setup({
 
       end
     },
-    "hrsh7th/vim-vsnip",
-    "hrsh7th/cmp-vsnip",
     {
       "petertriho/cmp-git",
       dependencies = { "hrsh7th/nvim-cmp" },
@@ -197,7 +218,6 @@ require("lazy").setup({
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    "hrsh7th/vim-vsnip-integ",
     "rafamadriz/friendly-snippets",
     {
       "nvim-treesitter/nvim-treesitter",
@@ -369,14 +389,16 @@ require("lazy").setup({
       opts = {},
     },
     "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim",
+    {
+      "nvim-telescope/telescope.nvim",
+      cmd = "Telescope",
+    },
     {
       "mbbill/undotree",
       keys = {
         { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle Undotree" },
       },
     },
-    "b0o/schemastore.nvim",
     "MeanderingProgrammer/render-markdown.nvim",
   },
   checker = { enabled = true },
@@ -408,3 +430,18 @@ vim.cmd.colorscheme("solarized-flat") -- this is a plugin that will fail if its 
 vim.g.solarized_termtrans = 1
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NonText", { bg = "none" })
+
+--lsp keymaps
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, vim.tbl_extend('force', opts, { desc = 'Go to Definition' }))
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, vim.tbl_extend('force', opts, { desc = 'Go to Declaration' }))
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, vim.tbl_extend('force', opts, { desc = 'Go to References' }))
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, vim.tbl_extend('force', opts, { desc = 'Go to Implementation' }))
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover Documentation' }))
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = 'Rename Symbol' }))
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
+  end,
+})
