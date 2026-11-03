@@ -410,6 +410,10 @@ require("lazy").setup({
       },
     },
     "MeanderingProgrammer/render-markdown.nvim",
+    {
+      "lewis6991/gitsigns.nvim",
+      opts = {},
+    },
   },
   checker = { enabled = true },
   rocks = {
