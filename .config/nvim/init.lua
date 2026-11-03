@@ -112,7 +112,14 @@ require("lazy").setup({
       event = { "InsertEnter" },
       dependencies = { 
         "onsails/lspkind-nvim",
-        { "L3MON4D3/LuaSnip", build = "make install_jsregexp", version = "v2.*" },
+        { 
+          "L3MON4D3/LuaSnip", 
+          build = "make install_jsregexp", 
+          version = "v2.*",
+          dependencies = {
+            { "rafamadriz/friendly-snippets" },
+          },
+        },
         "saadparwaiz1/cmp_luasnip",
     },
       config = function()
@@ -218,7 +225,6 @@ require("lazy").setup({
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    "rafamadriz/friendly-snippets",
     {
       "nvim-treesitter/nvim-treesitter",
       lazy = false,
@@ -464,3 +470,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
   end,
 })
+
+-- lazy load vscode snippets (eg 'friendly-snippets')
+require('luasnip.loaders.from_vscode').lazy_load()
