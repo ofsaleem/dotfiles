@@ -112,7 +112,7 @@ require("lazy").setup({
       event = { "InsertEnter" },
       dependencies = { 
         "onsails/lspkind-nvim",
-        "L3MON4D3/LuaSnip",
+        { "L3MON4D3/LuaSnip", build = "make install_jsregexp", version = "v2.*" },
         "saadparwaiz1/cmp_luasnip",
     },
       config = function()
@@ -412,6 +412,11 @@ require("lazy").setup({
     "MeanderingProgrammer/render-markdown.nvim",
   },
   checker = { enabled = true },
+  rocks = {
+    root = vim.fn.stdpath("data") .. "/lazy-rocks",
+    server = "https://lumen-oss.github.io/rocks-binaries/",
+    hererocks = true,
+  },
 })
 
 -- return to our last position in file
