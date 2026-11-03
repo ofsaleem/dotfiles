@@ -347,18 +347,18 @@ require("lazy").setup({
       lazy = false,
       config = function()
         -- jump
-        vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
-        vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+        vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)', { desc = 'Begin leap find' })
+        vim.keymap.set('n', 'S', '<Plug>(leap-from-window)', { desc = 'Begin leap find (backwards)' })
         -- visit (jump, operate, jump back)
         vim.keymap.set({ 'n', 'x', 'o' }, 'gs', function()
           require('leap').visit { input = (vim.fn.mode(true) == 'n') and 'v' or '' }
-        end)
-        vim.keymap.set({ 'x', 'o' }, 'ar', '<Plug>(leap-visit-text-object)')
-        vim.keymap.set({ 'x', 'o' }, 'ir', '<Plug>(leap-visit-inner-text-object)')
+        end, { desc = 'Begin leap visit' })
+        vim.keymap.set({ 'x', 'o' }, 'ar', '<Plug>(leap-visit-text-object)', { desc = 'Leap to and visit text object' })
+        vim.keymap.set({ 'x', 'o' }, 'ir', '<Plug>(leap-visit-inner-text-object)', { desc = 'Leap to and visit inner text object' })
 -- visit line
         vim.keymap.set('o', 'rr', function()
           return (vim.v.count == 0 and '1' or '') .. '<Plug>(leap-visit)'
-        end, { expr = true })
+        end, { expr = true, desc = 'Leap and visit line' })
         -- autopaste on return
         vim.api.nvim_create_autocmd('User', {
           pattern = 'VisitDone',
@@ -377,7 +377,7 @@ require("lazy").setup({
           require('leap.treesitter').select {
             opts = require('leap.user').with_traversal_keys('n', 'N')
           }
-        end)
+        end, { desc = 'Leap Treesitter integration' })
       end,
     },
     {
