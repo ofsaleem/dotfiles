@@ -1,3 +1,6 @@
+if vim.loader then 
+  vim.loader.enable()
+end
 -- bootstrap lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -59,6 +62,7 @@ require("lazy").setup({
           "gopls", "pyright", "bashls", "dockerls", "terraformls", "jsonnet_ls", "vimls", "jsonls", "yamlls", "vtsls", "lua_ls"
         },
       },
+      event = { "BufReadPre", "BufNewFile" },
     },
     "ishan9299/nvim-solarized-lua",
     {
@@ -220,6 +224,9 @@ require("lazy").setup({
       "petertriho/cmp-git",
       dependencies = { "hrsh7th/nvim-cmp" },
       opts = {},
+      init = function()
+        table.insert(require("cmp").get_config().sources, { name = "git" })
+      end
     },
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
